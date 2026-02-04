@@ -1,11 +1,16 @@
 
 .about_me{
-    background-color: #1a1d21;
+    background: linear-gradient(
+    135deg,
+    #111317,
+    #15191d,
+    #1c2128
+  );
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 300px;
-    padding: 60px 120px;
+    gap: 90px;
+    padding: 60px 200px;
 }
 h1,h2,p{
     color:#fff;
@@ -30,7 +35,7 @@ h1,h2,p{
 .new_line {
     display: flex;
     flex-direction: column; /* stack spans vertically */
-    gap: 20px; /* space between lines */
+    gap: 30px; /* space between lines */
 }
 
 .new_line span {
@@ -67,15 +72,73 @@ h1,h2,p{
 .web{
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
+.web p{
+    font-size: 25px;
+}
+.web svg,
+.web .service-icon {
+  /* do not allow the svg to shrink or grow inside the flex container */
+  flex: 0 0 54px;        /* fixed flex-basis so it always occupies 54px */
+  width: 54px;           /* actual drawn width */
+  height: 54px;          /* actual drawn height */
+  max-width: 54px;
+  max-height: 54px;
+  display: block;
+  box-sizing: border-box;
+  /* keep the color/glow you already use */
+  fill: none;            /* or fill: var(--accent) if you want filled icons */
+  stroke: #fff;          /* keep original stroke for those inline svgs */
+  filter: drop-shadow(0 0 6px rgba(255,106,61,0.8));
+}
+
+/* Remove or override this generic rule if present (it was shrinking icons) */
+.service_item svg,
+.service_item .nav-icon {
+  /* Reset any earlier width settings so they don't conflict */
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+}
+.about_description {
+  background: rgba(255, 255, 255, 0.08); /* glass */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 20px;
+  padding: 40px 50px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 0 0.5px rgba(255, 255, 255, 0.2);
+
+  position: relative;
+  overflow: hidden;
+}
+.about_description::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 106, 61, 0.25),
+    transparent 60%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .title_about{
     font-size: 25px;
 }
 .description{
     font-size: 20px;
-    line-height: 1.6rem;
+    line-height: 2rem;
     padding: 30px 0px 30px;
+    text-align: justify;
 }
 .percent{
     display: flex;
@@ -86,6 +149,7 @@ h1,h2,p{
     padding: 10px 0 10px;
     font-size: 20px;
     font-weight: bold;
+    filter: drop-shadow(0 0 6px rgba(255,106,61,0.8));
 }
 
 .descript_svg .desk{
@@ -145,6 +209,9 @@ h1,h2,p{
 
     .web p {
         font-size: 14px;
+    }
+    .about_description {
+        padding: 15px;
     }
 
     /* ABOUT CONTENT */

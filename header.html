@@ -1,29 +1,103 @@
-<header>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Header — Nav with Icons</title>
   <link rel="stylesheet" href="assets/css/headerstyle.css">
+</head>
+<body>
 
-  <div class="logo">
-    <h1>Amiel Jay Cagumbay</h1>
+  <header class="site-header" role="banner">
+    
+  <div class="header-inner">
+
+    <div class="logo">
+      <h1>Amiel Jay Cagumbay</h1>
+    </div>
+
+    <!-- accessible button for mobile toggle -->
+    <button class="menu-toggle" id="menu-toggle" aria-controls="nav" aria-expanded="false" aria-label="Toggle menu">
+      AJ
+    </button>
+
+    <nav class="nav" id="nav" role="navigation" aria-label="Main">
+      <ul class="nav-list">
+        <li><a href="index.html">
+          <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true"><path d="M3 12L12 3l9 9v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+          Home
+        </a></li>
+
+        <li><a href="#abooutme">
+          <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/></svg>
+          About
+        </a></li>
+
+        <li><a href="#projects">
+          <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true"><path d="M4 4h7l2 3h7v11H4z"/></svg>
+          Projects
+        </a></li>
+
+        <li><a href="#footer">
+          <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7l-3 3V6a2 2 0 0 1 2-2z"/></svg>
+          Contact
+        </a></li>
+      </ul>
+    </nav>
+
   </div>
+</header>
 
- <div class="menu-toggle" id="menu-toggle">
-  AJ
-</div>
+  <script>
+    // Mobile menu toggle
+   // header.js — toggle mobile menu and add scrolled class
+(function () {
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav');
+  const siteHeader = document.querySelector('.site-header');
 
-<!--
-  <nav class="nav" id="nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact Us</a>
-  </nav>-->
-</header> 
+  // mobile menu toggle
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('active');
+    });
+  }
 
-<script>
-  const menuToggle = document.getElementById('menu-toggle');
-const nav = document.getElementById('nav');
+  // add .scrolled to site-header when page is scrolled (small shadow/contrast)
+  function onScroll() {
+    if (!siteHeader) return;
+    if (window.scrollY > 6) {
+      siteHeader.classList.add('scrolled');
+    } else {
+      siteHeader.classList.remove('scrolled');
+    }
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-menuToggle.addEventListener('click', () => {
-  nav.classList.toggle('active');
-});
+  // close menu if clicking outside on mobile
+  document.addEventListener('click', (e) => {
+    if (!nav || !toggle) return;
+    if (!nav.classList.contains('active')) return;
+    const inside = nav.contains(e.target) || toggle.contains(e.target);
+    if (!inside) {
+      nav.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
 
-</script>
+  // close with escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      nav && nav.classList.remove('active');
+      toggle && toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+  </script>
+
+</body>
+</html>

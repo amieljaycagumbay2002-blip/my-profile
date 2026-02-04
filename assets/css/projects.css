@@ -1,5 +1,6 @@
+
 .projects_1{
-    background: #1a1d21;
+    background: #111317;
    padding: 60px 120px;
     
 }
@@ -9,10 +10,12 @@
     padding: 20px 0 60px;
     font-size: 25px;
 }
-.card_flex{
-    display: flex;
-    justify-content: space-between;
+.card_flex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* always 3 per row */
+  gap: 30px;
 }
+
 .card {
   width: 360px;
   background: #111827;
@@ -152,6 +155,7 @@ border-radius: 8px 0 0 8px;
     .card_flex {
         flex-wrap: wrap;
         justify-content: center;
+        grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
 
@@ -169,6 +173,7 @@ border-radius: 8px 0 0 8px;
     .card_flex {
         flex-direction: column;
         align-items: center;
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 

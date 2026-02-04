@@ -1,29 +1,21 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
 
- footer {
-  background: #222;
-  color: #fff;
-  padding: 20px;
-}
 
 .main_img{
   display: flex;
   justify-content: space-between;
   background-color: #1a1d21;
-  padding:10px 10px 0 10px;
+  padding:40px 10px 0px 0px;
+
 }
-.img {
-  position: relative;
+.img_desktop {
+  position: relative; 
+  padding-right: 200px;
   height: auto;
 }
 
 .first-img {
   display: block;
-  padding-right: 100px;
+
     /* adjust */
   width: 400px;
 }
@@ -31,14 +23,15 @@ body {
 .second-img {
   position: absolute;
   top: 80px;
-  left: 5px;
   width: 400px; /* adjust same as first image */
+}
+.img_mobile{
+  display: none;
 }
 
 
 .hello{
   color: #fff;
-  padding: 0px 115px;
 }
 .dot {
   display: inline-block;
@@ -52,58 +45,168 @@ body {
            /* vertically center the . */
   font-weight: bold;
 }
-.line {
-  display: inline-block;
-  width: 120px;       /* length of the line */
-  border-bottom: 5px solid #ff6a3d; /* 5px = baga kaayo */
-  margin-right: 10px;
-}
 
 .hero_sec{
-  padding: 50px 0 0;
+  margin-left: 190px;
+}
+.hero_p {
+  color: #d1d5db;              /* softer gray for readability */
+  font-size: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  max-width: 520px;            /* keeps text readable */
+  
 }
 .im_aj{
   color: #fff;
-  padding: 10px 0 10px;
-   display:flex;
-  align-items:center;
-  gap:10px;
 }
-.im_aj .line{
-  display:inline-block;
+.im_aj_line{
+  display: block;
+  width: 120px;
+  height: 6px;
+  background-color: #ff6a3d;
+  margin-top: 2px;
+}
+.soft_dev {
+  font-size: 60px;
+  font-weight: 800;
+  margin-top: 20px;
+
+  /* Gradient shine */
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #ffffff 40%,
+    #ff6a3d 50%,
+    #ffffff 60%,
+    #ffffff 100%
+  );
+
+  background-size: 200% auto;
+  background-position: 0% center;
+
+  /* Text mask */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  /* Animation */
+  animation: shine 2.5s linear infinite;
 }
 
-.soft_dev{
-  padding: 20px 115px 20px;
-  font-size: 50px;
-  color: #fff;
+/* Shine loop animation */
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+:root{
+  --accent: #ff6a3d;
+  --accent-strong: #ff845f;
+  --btn-radius: 6px;
+  --btn-shadow: 0 8px 20px rgba(255,106,61,0.18);
 }
 .resume_pro{
   display: flex;
   gap: 20px;
-  padding: 0 120px;
+  font-weight: 600;
+
 }
-.get_project{
-  background-color: #ff6a3d;
-  padding: 10px 16px;
-  color: #ffff;
-  border-radius: 5px;
-  text-decoration: none;
-}
+/* base for both buttons */
+.get_project,
 .my_resume{
- border-style: solid;
-border-color: rgba(255, 69, 0, 1);
-padding: 10px 20px;
-color: #ffff;
- border-radius: 5px;
- text-decoration: none;
-  
+  position: relative;       /* needed for pseudo elements */
+  overflow: hidden;
+  border-radius: var(--btn-radius);
+  display: inline-block;
+  padding: 10px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease;
+  will-change: transform, box-shadow;
+}
+
+/* primary filled button (continuous shimmer) */
+.get_project{
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  color: #fff;
+  box-shadow: var(--btn-shadow);
+}
+
+/* moving gloss using ::after */
+.get_project::after{
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -50%;
+  width: 40%;
+  height: 200%;
+  background: rgba(255,255,255,0.20);
+  transform: rotate(25deg) translateX(-150%);
+  filter: blur(8px);
+  opacity: 0.9;
+  /* shimmer animation */
+  animation: _shimmer 2.2s linear infinite;
+  pointer-events: none;
+}
+
+/* outline button base */
+.my_resume{
+  border: 2px solid rgba(255,69,0,0.95);
+  color: #fff;
+  background: transparent;
+  padding: 10px 20px;
+  box-shadow: none;
+}
+
+/* sheen for outline button - appears on hover */
+.my_resume::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-160%) rotate(0deg);
+  opacity: 0;
+  transition: transform .6s cubic-bezier(.2,.9,.2,1), opacity .25s ease;
+  pointer-events: none;
+}
+
+/* hover & active states - keep your transform + glow */
+.get_project:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(255,106,61,0.23);
+}
+.get_project:active{ transform: translateY(-1px); }
+
+.my_resume:hover{
+  /* keep your original behavior: fill and sheen */
+  background: linear-gradient(90deg, rgba(255,106,61,0.06), rgba(255,106,61,0.12)), var(--accent);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255,106,61,0.12);
+}
+
+/* trigger sheen on hover for outline */
+.my_resume:hover::before{
+  opacity: 1;
+  transform: translateX(120%);
+}
+
+/* keyboard focus - accessibility */
+.get_project:focus,
+.my_resume:focus{
+  outline: 3px solid rgba(255,106,61,0.18);
+  outline-offset: 4px;
 }
 
 .skill{
   display: flex;
   gap: 20px;
-  padding: 40px 120px;
+  padding: 45px 120px 45px;
   justify-content: space-between; 
   background-color: #2B3238;
 }
@@ -121,42 +224,114 @@ color: #ffff;
    ========================= */
 @media screen and (max-width: 992px) {
 
+ body {
+    overflow-x: hidden;
+  }
+
   .main_img {
-    flex-direction: column;
-    align-items: center;
+    display: block;
+    padding: 16px;
     text-align: center;
   }
 
-  .hello,
-  .soft_dev,
-  .resume_pro {
-    padding: 0;
+  .hero_sec {
+    margin-left: 0;
+    width: 100%;
   }
 
-  .resume_pro {
-    justify-content: center;
-  }
-  .img{
-    justify-content: center;
+  /* TEXT */
+  .hello {
+    font-size: 30px;
+    margin-bottom: 6px;
   }
 
-  .first-img,
-  .second-img {
+  .im_aj {
+    font-size: 30px;
+  }
+
+  .im_aj_line {
+    margin: 8px auto 16px;
+  }
+
+  /* show mobile image */
+  .img_mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 320px;
+    margin: 20px 0 30px;
+  }
+ 
+
+  /* hide desktop image */
+  .img_desktop {
+    display: none;
+  }
+
+  /* ORANGE RING (background) */
+  .first_img_mobile {
+    position: absolute;
     width: 300px;
+    height: auto;
+    z-index: 1;
+    filter: drop-shadow(0 0 25px rgba(255,106,61,0.75));
   }
 
-  .second-img {
-    top: 60px;
-    left: 0;
+  /* YOUR PHOTO (foreground) */
+  .second_img_mobile {
+    position: relative;
+    width: 300px;
+    margin-top: 100px;
+    height: auto;
+    z-index: 2;
   }
 
+
+  /* HIDE DESKTOP IMAGE */
+  .img_desktop {
+    display: none;
+  }
+  /* TITLE */
+  .soft_dev {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+
+  /* DESCRIPTION */
+  .hero_sec p {
+    font-size: 20px;
+    max-width: 90%;
+    margin: 0 auto 20px;
+  }
+
+  /* BUTTONS */
+  .resume_pro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .get_project,
+  .my_resume {
+    width: 85%;
+    text-align: center;
+  }
+
+  /* SKILLS */
   .skill {
-    padding: 30px 40px;
-    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 12px;
   }
 
   .skill li {
-    font-size: 18px;
+    width: 45%;
+    font-size: 15px;
+    text-align: center;
   }
 }
 
@@ -171,64 +346,110 @@ color: #ffff;
   }
 
   .main_img {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+    display: block;
+    padding: 16px;
     text-align: center;
   }
 
-  .hello {
-    padding: 0;
-    font-size: 28px;
-  }
-   .im_aj{
-    flex-direction:column-reverse;
-    text-align:center;
-    gap:6px;
-  }
-
-  .im_aj .line{
-    width:80px;
-  }
-  .soft_dev {
-    padding: 0;
-    font-size: 32px;
-  }
-
-  .resume_pro {
-    padding: 0;
-    flex-direction: column;
+  .hero_sec {
+    margin-left: 0;
     width: 100%;
+  }
+
+  /* TEXT */
+  .hello {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+
+  .im_aj {
+    font-size: 20px;
+  }
+
+  .im_aj_line {
+    margin: 8px auto 16px;
+  }
+
+  /* show mobile image */
+  .img_mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 320px;
+    margin: 20px 0 30px;
+  }
+ 
+
+  /* hide desktop image */
+  .img_desktop {
+    display: none;
+  }
+
+  /* ORANGE RING (background) */
+  .first_img_mobile {
+    position: absolute;
+    width: 260px;
+    height: auto;
+    z-index: 1;
+    filter: drop-shadow(0 0 25px rgba(255,106,61,0.75));
+  }
+
+  /* YOUR PHOTO (foreground) */
+  .second_img_mobile {
+    position: relative;
+    width: 250px;
+    margin-top: 40px;
+    height: auto;
+    z-index: 2;
+  }
+
+
+  /* HIDE DESKTOP IMAGE */
+  .img_desktop {
+    display: none;
+  }
+  /* TITLE */
+  .soft_dev {
+    font-size: 32px;
+    margin-top: -60px;
+    margin-bottom: 12px;
+  }
+
+  /* DESCRIPTION */
+  .hero_sec p {
+    font-size: 15px;
+    max-width: 90%;
+    margin: 0 auto 20px;
+  }
+
+  /* BUTTONS */
+  .resume_pro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     align-items: center;
   }
 
-  .resume_pro > div {
-    width: 80%;
+  .get_project,
+  .my_resume {
+    width: 85%;
     text-align: center;
   }
 
-  .first-img,
-  .second-img {
-    width: 250px;
-    padding: 0 20px;
-  }
-
-  .second-img {
-    top: 50px;
-    left: 0;
-  }
-
+  /* SKILLS */
   .skill {
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
     padding: 20px;
+    gap: 12px;
   }
 
   .skill li {
     width: 45%;
+    font-size: 15px;
     text-align: center;
-    font-size: 16px;
   }
 }
 
